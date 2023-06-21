@@ -1,18 +1,1 @@
-<div class="container">
-  <mat-grid-list cdkDropList
-                 cols="3"
-                 rowHeight="0.625rem"
-                 gutterSize="20"
-                 [cdkDropListData]="cells"
-                 (cdkDropListDropped)="drop($event)">
-    <mat-grid-tile *ngFor="let cell of cells; index as i" cdkDrag
-                   [colspan]="cell.colspan || 1"
-                   [rowspan]="cell.rowspan || 1">
-      <div [style.background-color]="cell.color"
-           style="width: 100%; height: 100%">
-        <ng-container *ngIf="!cell.component">PANEL: {{1}} COLSPAN: {{cell.colspan}}</ng-container>
-        <ng-container *ngIf="cell.component" [ngComponentOutlet]="cell.component" [ngComponentOutletInjector]="this.createInjector(cell)"></ng-container>
-      </div>
-    </mat-grid-tile>
-  </mat-grid-list>
-</div>
+<div class="grid-stack"></div>

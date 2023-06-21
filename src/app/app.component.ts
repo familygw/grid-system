@@ -1,6 +1,5 @@
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { Component, Injector, Type } from "@angular/core";
-import { TableGridComponent } from "./table-grid/table-grid.component";
+import { AfterViewInit, Component, Injector, Type } from "@angular/core";
+import { GridStack, GridStackWidget } from "gridstack";
 
 export interface Cell {
   color: string;
@@ -14,36 +13,24 @@ export interface Cell {
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.scss"]
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit {
   constructor(
     private injector: Injector
   ) { }
 
-  cells: Cell[] = [
-    { color: `#${(Math.random() * 0xFFFFFF << 0).toString(16)}`, colspan: 1, rowspan: 10 },
-    { color: `#${(Math.random() * 0xFFFFFF << 0).toString(16)}`, colspan: 2, rowspan: 10 },
-    { color: `#${(Math.random() * 0xFFFFFF << 0).toString(16)}`, colspan: 3, rowspan: 28.5, component: TableGridComponent },
-    { color: `#${(Math.random() * 0xFFFFFF << 0).toString(16)}`, colspan: 2, rowspan: 10 },
-    { color: `#${(Math.random() * 0xFFFFFF << 0).toString(16)}`, colspan: 1, rowspan: 10 }
-  ];
+  ngAfterViewInit(): void {
+    const items: GridStackWidget[] = [
+      {w: 5, h: 18, content: 'data roll up'},
+      {h: 20, content: 'my first widget'},
+      {w: 2, h: 20, content: 'another longer widget!'},
+      {w: 5, h: 65, content: 'grid'}
+    ];
 
-  drop(event: CdkDragDrop<Cell[]>): void {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
-    }
-  }
-
-  createInjector(cell: Cell): Injector {
-    return Injector.create({
-      providers: [{ provide: "cell", useValue: cell }],
-      parent: this.injector
+    const grid = GridStack.init({
+      column: 5,
+      margin: 0,
+      cellHeight: 10
     });
+    grid.load(items);
   }
 }

@@ -1,3 +1,6 @@
+@import "gridstack/dist/gridstack.min";
+@import "gridstack/dist/gridstack-extra.min";
+
 * {
   box-sizing: border-box;
 }
@@ -5,20 +8,12 @@
 html, body {
   height: 100%;
   width: 100%;
+  padding: 0;
+  margin: 0;
 }
 
-mat-grid-tile {
-  margin: 5px;
-  border: solid 1px #cdcdcd;
-  border-radius: 8px;
-  background: #fff;
-
-  > .mat-grid-tile-content {
-    padding: 20px;
-    > * {
-      border-radius: 8px;
-      padding: 20px;
-    }
-  }
+.grid-stack-item-content {
+  background-color: #18bc9c;
+  border-radius: 10px;
+  padding: 10px;
 }
-
